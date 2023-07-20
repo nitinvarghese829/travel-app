@@ -13,6 +13,7 @@ const User = require('./models/User');
 const Category = require('./models/Category');
 const Destination = require('./models/Destination');
 const Packages = require('./models/Packages');
+const PORT = process.env.PORT || 4000
 
 
 const app = express();
@@ -333,4 +334,6 @@ app.put('/admin/package/update', async(req, res) => {
 
 })
 
-app.listen(4000)
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`)
+})
