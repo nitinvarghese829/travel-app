@@ -32,6 +32,17 @@ app.use(cors({
     }
 }));
 
+app.use((req, res, next) => {
+    // Allow requests from a specific origin (in this example, it's 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app')
+    res.header('Access-Control-Allow-Origin', 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app');
+    // You can set other CORS headers as needed, such as methods, headers, etc.
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Pass control to the next middleware or route handler
+    next();
+});
+
 mongoose.connect(process.env.MONGO_URL)
 
 app.get('/test', (req, res) => {
