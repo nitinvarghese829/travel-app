@@ -26,7 +26,10 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app/'
+    origin: 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app/',
+    headers: {
+        'Access-Control-Allow-Origin': '*'
+    }
 }));
 
 mongoose.connect(process.env.MONGO_URL)
