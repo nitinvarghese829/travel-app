@@ -26,22 +26,8 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app/',
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    }
+    origin: process.env.BASE_URL,
 }));
-
-app.use((req, res, next) => {
-    // Allow requests from a specific origin (in this example, it's 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app')
-    res.header('Access-Control-Allow-Origin', 'https://64b96c4886e4fc17fa1792a4--beamish-daifuku-e558e6.netlify.app');
-    // You can set other CORS headers as needed, such as methods, headers, etc.
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-    // Pass control to the next middleware or route handler
-    next();
-});
 
 mongoose.connect(process.env.MONGO_URL)
 
@@ -240,6 +226,14 @@ app.get('/admin/destination/list', async (req, res) => {
 
         res.json(destinations);
     }
+});
+
+app.get('/admin/destination/list/test', async (req, res) => {
+    // if(await checkUserAdmin(req)){
+        const destinations = await Destination.find();
+
+        res.json(destinations);
+    // }
 });
 
 app.post('/admin/destination/create', async (req, res) => {
